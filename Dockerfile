@@ -4,6 +4,8 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
     apt-get install -y \
+      build-essential \
+      git \
       luajit \
       luarocks \
       libreadline-dev \
@@ -14,13 +16,7 @@ RUN \
       libevent-dev \
       libjansson-dev \
       libpython-dev \
-      make \
-      git \
   && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/
-
-RUN \
   git clone --recursive https://github.com/vysheng/tg.git /tg && \
   cd /tg && \
   ./configure && \
@@ -29,6 +25,14 @@ RUN \
   mv -v /tg/bin/* /usr/bin/ && \
   mkdir -vp /etc/telegram-cli/ && \
   mv -v /tg/tg-server.pub /etc/telegram-cli/server.pub && \
-  rm -rf /tg/
+  rm -rf /tg/ \
+  && \
+  DEBIAN_FRONTEND=noninteractive \
+    apt-get purge -y --auto-remove \
+      build-essential \
+      git \
+  && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/
 
-ENTRYPOINT /usr/bin/telegram-cli
+ENTRYPOINT [ "/usr/bin/telegram-cli" ]

@@ -23,7 +23,7 @@ RUN \
 RUN \
   git clone --recursive https://github.com/vysheng/tg.git /tg && \
   cd /tg && \
-  ./configure --disable-python && \
+  ./configure && \
   cd /tg && \
   make && \
   mv -v /tg/bin/* /usr/bin/ && \

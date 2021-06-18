@@ -1,4 +1,4 @@
-FROM pataquets/ubuntu:trusty
+FROM pataquets/ubuntu:xenial
 
 RUN \
   apt-get update && \
@@ -16,6 +16,7 @@ RUN \
       libevent-dev \
       libjansson-dev \
       libpython-dev \
+      zlib1g-dev \
   && \
   git clone --recursive https://github.com/vysheng/tg.git /tg && \
   cd /tg && \
